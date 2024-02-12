@@ -54,7 +54,7 @@ while [ "$1" != "" ]; do
 		-jwt | --jwt  )
 			if [ "$2" != "" ]; then
 				JWT_SECRET=$2 ;
-				sed -i 's/JWT_SECRET=.*/JWT_SECRET=${JWT_SECRET}/g' ./.env
+				sed -i 's/JWT_SECRET=.*/JWT_SECRET='${JWT_SECRET}'/g' ./.env
 				shift
 			fi
 		;;
@@ -62,7 +62,7 @@ while [ "$1" != "" ]; do
 		-jwt_header | --jwt_header  )
 			if [ "$2" != "" ]; then
 				JWT_HEADER=$2 ;
-				sed -i 's/JWT_HEADER=.*/JWT_HEADER=${JWT_HEADER}/g' ./.env
+				sed -i 's/JWT_HEADER=.*/JWT_HEADER='${JWT_HEADER}'/g' ./.env
 				shift
 			fi
 		;;
