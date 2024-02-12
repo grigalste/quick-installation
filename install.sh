@@ -95,6 +95,10 @@ if [ ! -f "/etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem" ] && [ "$HTTP_PRO
 
 else
 	echo -e "\nCertificates already exist\n";
+	
+	mkdir -p /app/nginx/ssl/
+	cp -f /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem /app/nginx/ssl/
+	cp -f /etc/letsencrypt/live/${DOMAIN_NAME}/privkey.pem /app/nginx/ssl/
 fi
 
 	case $INSTALLED_APP in
