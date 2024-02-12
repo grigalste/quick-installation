@@ -1,6 +1,6 @@
 # Quick installation of applications and connectors
     Usage: install.sh [OPTIONS]
-      -app | --app                          - application name;
+      -app | --app                          - application name (example, humhub, redmine, nextcloud?);
       -version | --version | -ver           - application version;
       -url_connect | --url_connect | -uc    - the URL of the connector;
       -ds_version | --ds_version | -dsv     - DS version;
@@ -18,4 +18,3 @@
 ### Other examples
     bash install.sh -app humhub -version 1.13.2 -ds_version 7.5.1 -url_connect https://github.com/ONLYOFFICE/onlyoffice-humhub/releases/download/v3.1.0/onlyoffice.zip
     bash install.sh -app humhub -domain domain.name -email example@example.com -http true
-
