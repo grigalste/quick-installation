@@ -88,19 +88,20 @@ fi
 docker version | head -n2;
 docker-compose version | head -n1;
 
-if [ ! -f "/etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem" ] && [ "$HTTP_PROTO" != "http" ]; then
-    echo -e "\nCertificate was not received\n"
+if [ "$DOMAIN_NAME" != "" ]; then
+	if [ ! -f "/etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem" ] && [ "$HTTP_PROTO" != "http" ]; then
+		echo -e "\nCertificate was not received\n"
 
-	bash nginx/nginx_le_cert_gen.sh ${PARAMETERS}
+		bash nginx/nginx_le_cert_gen.sh ${PARAMETERS}
 
-else
-	echo -e "\nCertificates already exist\n";
-	
-	mkdir -p /app/nginx/ssl/
-	cp -f /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem /app/nginx/ssl/
-	cp -f /etc/letsencrypt/live/${DOMAIN_NAME}/privkey.pem /app/nginx/ssl/
+	else
+		echo -e "\nCertificates already exist\n";
+		
+		mkdir -p /app/nginx/ssl/
+		cp -f /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem /app/nginx/ssl/
+		cp -f /etc/letsencrypt/live/${DOMAIN_NAME}/privkey.pem /app/nginx/ssl/
+	fi
 fi
-
 	case $INSTALLED_APP in
 		humhub )
 			source humhub/install_humhub_compose.sh 
