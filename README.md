@@ -9,6 +9,8 @@
       -http | --http                        - using the http protocol.
 
 ## Example
+### Clone the repository to the /app folder:
+    git clone --depth=1 https://github.com/ivanovalste/quick-installation /app && cd /app
 ### Installing the HUMHUB application specifying the domain and email address:
 	bash install.sh -app humhub -domain domain.name -email example@example.com
 ### Installing the Redmine application, setting the DS version and the HTTP protocol:
