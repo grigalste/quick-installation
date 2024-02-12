@@ -1,0 +1,53 @@
+version: '3.1'
+services:
+  app:
+    container_name: app-server
+    image: mriedmann/humhub:${SERVICE_TAG}
+    restart: always
+    networks:
+      - onlyoffice
+    environment:
+      HUMHUB_DB_USER: humhub
+      HUMHUB_DB_PASSWORD: humhub
+      HUMHUB_DB_NAME: humhub
+      HUMHUB_DB_HOST: mariadb
+      HUMHUB_AUTO_INSTALL: 1
+#      HUMHUB_PROTO: 'https'
+#      HUMHUB_HOST: ${DOMAIN_NAME}
+      HUMHUB_ADMIN_LOGIN: ${HUMHUB_ADMIN_LOGIN}
+      HUMHUB_ADMIN_EMAIL: ${EMAIL_NAME}
+      HUMHUB_ADMIN_PASSWORD: ${HUMHUB_ADMIN_PASSWORD}
+    volumes:
+      - /app/humhub/config:/var/www/localhost/htdocs/protected/config
+      - /app/humhub/uploads:/var/www/localhost/htdocs/uploads
+      - /app/humhub/connector:/var/www/localhost/htdocs/protected/modules
+    depends_on:
+      - mariadb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.2
+    restart: always
+    networks:
+      - onlyoffice
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: humhub
+      MYSQL_USER: humhub
+      MYSQL_PASSWORD: humhub
+    volumes:
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+networks:
+  onlyoffice:
+    driver: 'bridge'
+volumes:
+  dbdata:

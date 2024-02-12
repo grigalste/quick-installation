@@ -10,17 +10,18 @@ VERSION_HUMHUB=$(curl -s https://api.github.com/repos/ONLYOFFICE/onlyoffice-humh
 
 mkdir -p /app/humhub/{mysql,modules}
 
-#docker network create onlynetwork
-# --network onlynetwork
+docker network create onlynetwork
 
-docker run -d --name humhub_db -v /app/humhub/mysql:/var/lib/mysql --restart=always \
+docker run -d --name humhub_db --network onlynetwork -v /app/humhub/mysql:/var/lib/mysql --restart=always \
 -e MARIADB_ROOT_PASSWORD=my-secret-pw \
 -e MARIADB_DATABASE=humhub_db \
 -e MARIADB_USER=humhub \
 -e MARIADB_PASSWORD=humhub \
 mariadb:10.2
 
-docker run -d --name humhub --restart=always -v /app/humhub/modules:/var/www/localhost/htdocs/protected/modules -p 80:80 -p 443:443 --link humhub_db:db \
+docker run -d --name humhub --network onlynetwork --restart=always -p 80:80 -p 443:443 --link humhub_db:db \
+-v /app/humhub/modules:/var/www/localhost/htdocs/protected/modules \
+-v /app/nginx:/etc/nginx/conf.d \
 -e HUMHUB_DB_USER=humhub \
 -e HUMHUB_DB_PASSWORD=humhub \
 -e HUMHUB_DB_NAME=humhub_db \
@@ -31,13 +32,13 @@ docker run -d --name humhub --restart=always -v /app/humhub/modules:/var/www/loc
 -e HUMHUB_ADMIN_PASSWORD=MySuperAdminPassw0rd \
  mriedmann/humhub:stable
 
-docker run -i -t -d --name onlyoffice-document-server -p 8080:80 --restart=always -e JWT_SECRET=$JWT_SECRET onlyoffice/documentserver-ee
+docker run -i -t -d --name onlyoffice-document-server --network onlynetwork -p 8080:80 --restart=always -e JWT_SECRET=$JWT_SECRET onlyoffice/documentserver-ee
 
 wget -O /app/humhub/modules/onlyoffice.zip https://github.com/ONLYOFFICE/onlyoffice-humhub/releases/download/$VERSION_HUMHUB/onlyoffice.zip
 unzip -o /app/humhub/modules/onlyoffice.zip -d /app/humhub/modules
 rm /app/humhub/modules/onlyoffice.zip
 
-echo "Status of the containers"
+echo "Status of the containers:"
 sleep 5
 docker ps --format '{{.Names}}'"\t""Status:  "'{{.Status}}'
 sleep 5
