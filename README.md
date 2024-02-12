@@ -18,5 +18,6 @@
 ### Installing the Redmine application, setting the DS version and the HTTP protocol:
     bash install.sh -app redmine -ds_version 7.5.1 -http true
 ### Other examples
-    bash install.sh -app humhub -version 1.13.2 -ds_version 7.5.1 -url_connect https://github.com/ONLYOFFICE/onlyoffice-humhub/releases/download/v3.1.0/onlyoffice.zip
+    bash install.sh -app humhub -version 1.13.2 -ds_version 7.5.1 /
+        -url_connect https://github.com/ONLYOFFICE/onlyoffice-humhub/releases/download/v3.1.0/onlyoffice.zip
     bash install.sh -app humhub -domain domain.name -email example@example.com -http true
