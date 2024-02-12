@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  onlyoffice-document-server:
+    container_name: onlyoffice-document-server
+    image: onlyoffice/documentserver-ee:${DS_SERVICE_TAG}
+    restart: always
+    environment:
+      - JWT_ENABLED=true
+      - JWT_SECRET=${DOCUMENT_SERVER_JWT_SECRET}
+      - JWT_HEADER=${DOCUMENT_SERVER_JWT_HEADER}
+#      - JWT_IN_BODY=true
+    networks:
+      - onlyoffice
+    volumes:
+      - document_data:/var/www/onlyoffice/Data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-s", "http://localhost/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+networks:
+  onlyoffice:
+    driver: 'bridge'
+volumes:
+  document_data:
