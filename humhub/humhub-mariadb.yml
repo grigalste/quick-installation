@@ -18,8 +18,8 @@ services:
       HUMHUB_ADMIN_EMAIL: ${EMAIL_NAME}
       HUMHUB_ADMIN_PASSWORD: ${HUMHUB_ADMIN_PASSWORD}
     volumes:
-      - /app/humhub/config:/var/www/localhost/htdocs/protected/config
-      - /app/humhub/uploads:/var/www/localhost/htdocs/uploads
+#      - /app/humhub/config:/var/www/localhost/htdocs/protected/config
+#      - /app/humhub/uploads:/var/www/localhost/htdocs/uploads
       - /app/humhub/connector:/var/www/localhost/htdocs/protected/modules
     depends_on:
       - mariadb
@@ -39,8 +39,8 @@ services:
       MYSQL_DATABASE: humhub
       MYSQL_USER: humhub
       MYSQL_PASSWORD: humhub
-    volumes:
-      - dbdata:/var/lib/mysql
+#    volumes:
+#      - dbdata:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
       interval: 30s
