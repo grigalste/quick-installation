@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  nginx:
+    container_name: nginx-server
+    image: nginx
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - onlyoffice
+    volumes:
+      - /app/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /app/nginx/ssl:/etc/nginx/ssl/
+networks:
+  onlyoffice:
+    driver: 'bridge'
