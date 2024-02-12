@@ -1,6 +1,7 @@
 # Quick installation of applications and connectors
     Usage: install.sh [OPTIONS]
-      -app | --app                          - application name (example, humhub, redmine, nextcloud?);
+      -app | --app                          - application name /
+                                                (example, humhub, redmine, nextcloud?);
       -version | --version | -ver           - application version;
       -url_connect | --url_connect | -uc    - the URL of the connector;
       -ds_version | --ds_version | -dsv     - DS version;
