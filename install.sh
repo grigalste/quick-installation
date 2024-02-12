@@ -9,6 +9,12 @@ DOMAIN_NAME='';
 EMAIL_NAME='';
 INSTALLED_APP='';
 HTTP_PROTO="https";
+JWT_HEADER='';
+JWT_SECRET='';
+DS_SERVICE_TAG='';
+CONNECTOR_URL='';
+SERVICE_TAG='';
+
 
 cp -f /app/.env_template /app/.env
 
@@ -30,6 +36,13 @@ while [ "$1" != "" ]; do
 			fi
 		;;
 
+		-url_connect | --url_connect | -uc )
+			if [ "$2" != "" ]; then
+				CONNECTOR_URL=$2 ;
+				shift
+			fi
+		;;
+
 		-ds_version | --ds_version | -dsv )
 			if [ "$2" != "" ]; then
 				DS_SERVICE_TAG=$2 ;
@@ -38,9 +51,18 @@ while [ "$1" != "" ]; do
 			fi
 		;;
 
-		-url_connect | --url_connect | -uc )
+		-jwt | --jwt  )
 			if [ "$2" != "" ]; then
-				CONNECTOR_URL=$2 ;
+				JWT_SECRET=$2 ;
+				sed -i 's/JWT_SECRET=.*/JWT_SECRET=${JWT_SECRET}/g' ./.env
+				shift
+			fi
+		;;
+
+		-jwt_header | --jwt_header  )
+			if [ "$2" != "" ]; then
+				JWT_HEADER=$2 ;
+				sed -i 's/JWT_HEADER=.*/JWT_HEADER=${JWT_HEADER}/g' ./.env
 				shift
 			fi
 		;;
