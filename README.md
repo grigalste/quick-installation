@@ -2,9 +2,10 @@
     Usage: install.sh [OPTIONS]
       -app | --app                          - application name /
                                                 (example, humhub, redmine, nextcloud?);
-      -version | --version | -ver           - application version;
-      -url_connect | --url_connect | -uc    - the URL of the connector;
-      -ds_version | --ds_version | -dsv     - DS version;
+      -version | --version | -ver           - application version - tag  /
+                                                (1.13.2);
+      -url_connect | --url_connect | -uc    - the URL address of the connector;
+      -ds_version | --ds_version | -dsv     - DS version - tag (7.5.1);
       -domain | --domain | -d               - domain name;
       -email | --email | -e                 - e-mail address;
       -http | --http                        - using the http protocol.
