@@ -24,7 +24,7 @@ services:
       - REDMINE_DB_USERNAME=redmine
       - REDMINE_DB_PASSWORD=redmine
     volumes:
-      - /connector:/usr/src/redmine/plugins
+      - /app/redmine/connector:/usr/src/redmine/plugins
 networks:
   default:
     name: onlyoffice
