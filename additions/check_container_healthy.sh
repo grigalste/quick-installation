@@ -6,8 +6,6 @@ if [[ $(docker ps | grep ${1} | cut -d'(' -f2 | cut -d')' -f1 ) == 'healthy' ]] 
 else
 	echo "Waiting for the container ${INSTALLED_APP} to start...";
 	sleep 5;
-	check_container_healthy
+	check_container_healthy ${1}
 fi
 }
-
-check_container_healthy onlyoffice-document-server
