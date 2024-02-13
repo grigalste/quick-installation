@@ -70,7 +70,15 @@ while [ "$1" != "" ]; do
 		-domain | --domain | -d )
 			if [ "$2" != "" ]; then
 				DOMAIN_NAME=$2
-				echo "DOMAIN_NAME=${DOMAIN_NAME}" >> /app/.env
+				DOMAIN_NAME_IP=$( dig +short ${DOMAIN_NAME} );
+				
+				if [ "$DOMAIN_NAME_IP" == "" ]; then
+					echo "The domain name cannot be resolved!";
+					exit 1;
+				else
+					echo "DOMAIN_NAME=${DOMAIN_NAME}" >> /app/.env;
+				fi
+
 				shift
 			fi
 		;;
