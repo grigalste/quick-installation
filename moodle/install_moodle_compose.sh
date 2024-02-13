@@ -16,6 +16,9 @@ if [ "$EMAIL_NAME" == "" ]; then
 	echo "EMAIL_NAME=example@example.com" >> /app/.env;
 fi
 
+echo "#!/bin/sh" > /app/$INSTALLED_APP/run.sh
+echo "/opt/bitnami/scripts/moodle/entrypoint.sh '/opt/bitnami/scripts/moodle/run.sh' &> /tmp/server.log &" >> /app/$INSTALLED_APP/run.sh
+
 docker-compose -f moodle/moodle_mariadb.yml -f document-server/document-server.yml -f nginx/nginx.yml --env-file /app/.env up -d
 
 JWT_SECRET=$(awk -F= "/DOCUMENT_SERVER_JWT_SECRET/ {print \$2}" /app/.env | tr -d '\r');
