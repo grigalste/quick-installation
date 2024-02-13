@@ -1,6 +1,6 @@
 # Quick installation of applications and connectors
     Usage: install.sh [OPTIONS]
-*     -app | --app                          - application name \
+      -app | --app                          - application name* \
                                                 (example, humhub, redmine, nextcloud?);
       -version | --version | -ver           - application version - tag  \
                                                 (1.13.2);
@@ -8,7 +8,7 @@
       -ds_version | --ds_version | -dsv     - DS version - tag (7.5.1);
       -jwt | --jwt_secret                   - JWT secret key;
       -jwt_header | --jwt_header            - JWT header;
-*     -domain | --domain | -d               - domain name;
+      -domain | --domain | -d               - domain name* ;
       -email | --email | -e                 - e-mail address;
       -http | --http                        - using the http protocol.
 
