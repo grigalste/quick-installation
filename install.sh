@@ -153,7 +153,7 @@ fi
 			source redmine/install_redmine_compose.sh
 		;;
 
-		redmine )
+		moodle )
 			source moodle/install_moodle_compose.sh
 		;;
 
