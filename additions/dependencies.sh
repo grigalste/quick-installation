@@ -14,8 +14,8 @@ echo "SERVICE_TAG=${SERVICE_TAG}" >> /app/.env;
 download_connector () {
 
 if [ "$CONNECTOR_URL" == "" ]; then
-	CONNECTOR_VERSION=$(curl -s https://api.github.com/repos/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases | jq -r '.[] | select(.prerelease==false) | .name' | sort -n | tail -n1 );
-	CONNECTOR_NAME=$(curl -s https://api.github.com/repos/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases | jq  -r '.[0] | .assets[] | .name ' );
+	CONNECTOR_VERSION=$(curl --location -s https://api.github.com/repos/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases | jq -r '.[] | select(.prerelease==false) | .name' | sort -n | tail -n1 );
+	CONNECTOR_NAME=$(curl --location -s https://api.github.com/repos/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases | jq  -r '.[0] | .assets[] | .name ' );
 	CONNECTOR_URL="https://github.com/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases/download/$CONNECTOR_VERSION/$CONNECTOR_NAME";
 else
 #	CONNECTOR_VERSION=$(echo $CONNECTOR_URL | cut -d'/' -f8);
