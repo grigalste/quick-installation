@@ -19,9 +19,10 @@ services:
       - MOODLE_PASSWORD=${MOODLE_ADMIN_PASSWORD}
       - MOODLE_EMAIL=${EMAIL_NAME}
       - MOODLE_SITE_NAME='New Test Site'
-#    volumes:
+    volumes:
 #      - moodle_data:/bitnami/moodle
 #      - moodledata_data:/bitnami/moodledata
+      - /app/moodle/run.sh:/run.sh
       - ./onlyoffice:/tmp/onlyoffice
     depends_on:
       - mariadb
