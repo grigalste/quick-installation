@@ -26,17 +26,8 @@ docker-compose -f humhub/humhub-mariadb.yml -f document-server/document-server.y
 JWT_SECRET=$(awk -F= "/DOCUMENT_SERVER_JWT_SECRET/ {print \$2}" /app/.env | tr -d '\r');
 JWT_HEADER=$(awk -F= "/DOCUMENT_SERVER_JWT_HEADER/ {print \$2}" /app/.env | tr -d '\r');
 
-check_humhub_healthy () {
-if [[ $(docker ps | grep app-server | cut -d'(' -f2 | cut -d')' -f1 ) == 'healthy' ]] ; then
-	echo "The container HUMHUB is running";
-else
-	echo "Waiting for the container HUMHUB to start...";
-	sleep 5;
-	check_humhub_healthy
-fi
-}
-
-check_humhub_healthy
+source additions/check_container_healthy.sh
+check_container_healthy app-server
 
 if [ "$DOMAIN_NAME" == "" ]; then
 	readonly DOMAIN_NAME=$(wget -q -O - ifconfig.me/ip)

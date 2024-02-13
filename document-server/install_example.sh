@@ -17,17 +17,8 @@ fi
 
 docker-compose -f document-server/document-server.yml -f nginx/nginx.yml --env-file /app/.env up -d
 
-check_container_healthy () {
-if [[ $(docker ps | grep onlyoffice-document-server | cut -d'(' -f2 | cut -d')' -f1 ) == 'healthy' ]] ; then
-	echo "The container DS is running";
-else
-	echo "Waiting for the container DS to start...";
-	sleep 5;
-	check_container_healthy
-fi
-}
-
-check_container_healthy
+source additions/check_container_healthy.sh
+check_container_healthy onlyoffice-document-server
 
 docker exec onlyoffice-document-server sudo supervisorctl start ds:example
 docker exec onlyoffice-document-server sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
