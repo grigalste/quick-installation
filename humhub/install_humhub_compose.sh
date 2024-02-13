@@ -2,7 +2,7 @@
 
 mkdir -p /app/$INSTALLED_APP/{uploads,config,connector}
 
-source dependencies.sh
+source additions/dependencies.sh
 
 if [ "$HTTP_PROTO" == "http" ]; then
 	cp -f /app/nginx/nginx_http.conf /app/humhub/nginx.conf
