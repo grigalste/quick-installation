@@ -153,6 +153,10 @@ fi
 			source redmine/install_redmine_compose.sh
 		;;
 
+		redmine )
+			source moodle/install_moodle_compose.sh
+		;;
+
 		nextcloud )
 			echo "Files are missing";
 		;;
