@@ -18,8 +18,9 @@ if [ "$CONNECTOR_URL" == "" ]; then
 	CONNECTOR_NAME=$(curl -s https://api.github.com/repos/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases | jq  -r '.[0] | .assets[] | .name ' );
 	CONNECTOR_URL="https://github.com/ONLYOFFICE/onlyoffice-$INSTALLED_APP/releases/download/$CONNECTOR_VERSION/$CONNECTOR_NAME";
 else
-	CONNECTOR_VERSION=$(echo $CONNECTOR_URL | cut -d'/' -f8);
- 	CONNECTOR_NAME=$(echo $CONNECTOR_URL | cut -d'/' -f9);
+#	CONNECTOR_VERSION=$(echo $CONNECTOR_URL | cut -d'/' -f8);
+# 	CONNECTOR_NAME=$(echo $CONNECTOR_URL | cut -d'/' -f9);
+	CONNECTOR_NAME="${CONNECTOR_URL##*/}";
 fi
 
 wget -O /app/$INSTALLED_APP/connector/$CONNECTOR_NAME $CONNECTOR_URL
@@ -38,6 +39,11 @@ EXP_FILE_CONNECTOR=$( echo $CONNECTOR_NAME | awk -F. '{print $NF}' );
             echo "zstd";
 		;;
 
+		gz )
+			tar -xvf /app/$INSTALLED_APP/connector/${CONNECTOR_NAME} -C /app/$INSTALLED_APP/connector 
+  			mv /app/$INSTALLED_APP/connector/moodle-mod_onlyoffice* /app/$INSTALLED_APP/connector/onlyoffice
+			echo "gz";
+		;;
 	esac
 
 rm /app/$INSTALLED_APP/connector/$CONNECTOR_NAME
