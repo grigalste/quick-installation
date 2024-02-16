@@ -35,14 +35,14 @@ docker-compose -f moodle/moodle_mariadb.yml -f document-server/document-server.y
 JWT_SECRET=$(awk -F= "/DOCUMENT_SERVER_JWT_SECRET/ {print \$2}" /app/.env | tr -d '\r');
 JWT_HEADER=$(awk -F= "/DOCUMENT_SERVER_JWT_HEADER/ {print \$2}" /app/.env | tr -d '\r');
 
-APP_SERVER_PORT="8080";
-source additions/check_connection.sh
+#APP_SERVER_PORT="8080";
+#source additions/check_connection.sh
 
 if [ "$DOMAIN_NAME" == "" ]; then
 	readonly DOMAIN_NAME=$(wget -q -O - ifconfig.me/ip)
 fi
 
-echo -e "Then you can go to the Moodle web interface at: ${HTTP_PROTO}://${DOMAIN_NAME} and check the connector operation."
+echo -e "Then you can go to the ${INSTALLED_APP} web interface at: ${HTTP_PROTO}://${DOMAIN_NAME} and check the connector operation."
 echo -e "The script is finished"
 
 # Restoring the configuration
