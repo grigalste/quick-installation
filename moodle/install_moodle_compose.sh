@@ -16,7 +16,7 @@ fi
 source additions/dependencies.sh
 
 mkdir -p /app/$INSTALLED_APP/moodle_git/mod/onlyofficeeditor
-cp -rf /app/$INSTALLED_APP/connector/$(ls ./)/* /app/$INSTALLED_APP/moodle_git/mod/onlyofficeeditor
+cp -rf /app/moodle/connector/$(ls /app/moodle/connector/)/* /app/moodle/moodle_git/mod/onlyofficeeditor
 
 if [ "$HTTP_PROTO" == "http" ]; then
 	cp -f /app/moodle/nginx_http.conf /app/moodle/nginx.conf
