@@ -7,7 +7,7 @@ echo "Installing Docker";
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt update -y
-apt install -y docker-ce docker-ce-cli
+apt install -y docker-ce docker-ce-cli jq
 systemctl enable --now docker
 
 echo "Installing Docker Compose";
