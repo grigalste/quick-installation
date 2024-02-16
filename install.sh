@@ -107,7 +107,7 @@ command_exists () {
 }
 
 apt update -y;
-apt install jq unzip zstd curl wget ca-certificates net-tools -y;
+apt install jq unzip zstd curl wget ca-certificates net-tools git -y;
 
 if command_exists docker; then
 	echo "Docker is already installed";
@@ -118,6 +118,7 @@ fi
 docker version | head -n2;
 docker-compose version | head -n1;
 
+echo "HTTP_PROTO=${HTTP_PROTO}" >> /app/.env;
 
 if [ "$HTTP_PROTO" != "http" ]; then
 
