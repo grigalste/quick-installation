@@ -2,12 +2,21 @@
 
 mkdir -p /app/$INSTALLED_APP/connector
 
-SERVICE_TAG=${SERVICE_TAG:-MOODLE_403_STABLE};
-git clone -b ${SERVICE_TAG} git://git.moodle.org/moodle.git /app/$INSTALLED_APP/moodle_git ;
-rm -rf /app/$INSTALLED_APP/moodle_git/.* /app/$INSTALLED_APP/moodle_git/*.txt ;
+MOODLE_TAG=${MOODLE_TAG:-MOODLE_403_STABLE};
+rm -rf /app/$INSTALLED_APP/moodle_git 2> /dev/null ;
+git clone -b ${MOODLE_TAG} git://git.moodle.org/moodle.git /app/$INSTALLED_APP/moodle_git ;
+rm -rf /app/$INSTALLED_APP/moodle_git/-.* ;
+rm -rf /app/$INSTALLED_APP/moodle_git/*.txt  ;
 cp -f /app/$INSTALLED_APP/moodle_git/config-dist.php /app/$INSTALLED_APP/moodle_git/config.php
 
+if [ "$HTTP_PROTO" != "http" ]; then
+	sed -i '/wwwroot/a$CFG->sslproxy = true;' /app/$INSTALLED_APP/moodle_git/config.php ;
+fi
+
 source additions/dependencies.sh
+
+mkdir -p /app/$INSTALLED_APP/moodle_git/mod/onlyofficeeditor
+cp -rf /app/$INSTALLED_APP/connector/$(ls ./)/* /app/$INSTALLED_APP/moodle_git/mod/onlyofficeeditor
 
 if [ "$HTTP_PROTO" == "http" ]; then
 	cp -f /app/moodle/nginx_http.conf /app/moodle/nginx.conf
