@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Waiting for the launch of Redmine "  
+echo "Waiting for the launch of ${INSTALLED_APP} "  
 APP_SERVER_IP=$( docker inspect app-server | jq -r '.[]  | .NetworkSettings.Networks.redmine_onlyoffice.IPAddress ' );
   
 for i in {1..60}; do
