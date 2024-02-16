@@ -20,6 +20,6 @@ for i in {1..60}; do
 done
 
 if [[ "${APP_SERVER_READY}" != 'yes' ]]; then
-    err " I didn't wait for the launch of Redmine. Check the container logs using the command: sudo docker logs -f app-server "
+    err " I didn't wait for the launch of ${INSTALLED_APP}. Check the container logs using the command: sudo docker logs -f app-server "
     exit 1
 fi
