@@ -2,23 +2,22 @@ version: '3'
 services:
   app:
     container_name: app-server
-#    image: "moodlehq/moodleapp:${SERVICE_TAG}"
-    image: "alste/moodle:latest"
+    image: "alste/php8.1-nocode:latest"
     restart: always
     ports:
       - 8080:8080
     networks:
       - onlyoffice
     environment:
-      - SQL_DB_TYPE=mariadb
-      - SQL_DB_HOST=mariadb
-      - SQL_DB_NAME=moodledb
-      - SQL_DB_USER=moodle
-      - SQL_DB_PASS=moodle
-      - HTTP_PROTO=http
-      - HTTP_URL=alt.office24.site
-#    volumes:
-#      - moodle_data:/bitnami/moodle
+      SQL_DB_TYPE: mariadb
+      SQL_DB_HOST: mariadb
+      SQL_DB_NAME: ${SQL_DB_NAME}
+      SQL_DB_USER: ${SQL_DB_USER}
+      SQL_DB_PASS: ${SQL_DB_PASS}
+      HTTP_PROTO: ${HTTP_PROTO}
+      HTTP_URL: ${DOMAIN_NAME}
+    volumes:
+      - /app/moodle/moodle_git:/var/www/html/appserver
 #      - moodledata_data:/bitnami/moodledata
 #      - /app/moodle/run.sh:/run.sh
 #      - ./onlyoffice:/tmp/onlyoffice
@@ -32,9 +31,9 @@ services:
       - onlyoffice
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
-      MYSQL_DATABASE: moodledb
-      MYSQL_USER: moodle
-      MYSQL_PASSWORD: moodle
+      MYSQL_DATABASE: ${SQL_DB_NAME}
+      MYSQL_USER: ${SQL_DB_USER}
+      MYSQL_PASSWORD: ${SQL_DB_PASS}
 #    volumes:
 #      - dbdata:/var/lib/mysql
     healthcheck:
