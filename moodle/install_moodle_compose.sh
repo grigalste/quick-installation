@@ -4,6 +4,7 @@ mkdir -p /app/$INSTALLED_APP/connector
 
 MOODLE_TAG=${MOODLE_TAG:-MOODLE_403_STABLE};
 rm -rf /app/$INSTALLED_APP/moodle_git 2> /dev/null ;
+echo "git clone ${MOODLE_TAG} FROM git://git.moodle.org/moodle.git TO /app/${INSTALLED_APP}/moodle_git";
 git clone -b ${MOODLE_TAG} git://git.moodle.org/moodle.git /app/$INSTALLED_APP/moodle_git ;
 rm -rf /app/$INSTALLED_APP/moodle_git/-.* ;
 rm -rf /app/$INSTALLED_APP/moodle_git/*.txt  ;
