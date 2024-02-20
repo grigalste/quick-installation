@@ -18,9 +18,7 @@ services:
       HTTP_URL: ${DOMAIN_NAME}
     volumes:
       - /app/moodle/moodle_git:/var/www/html/appserver
-#      - moodledata_data:/bitnami/moodledata
-#      - /app/moodle/run.sh:/run.sh
-#      - ./onlyoffice:/tmp/onlyoffice
+      - /app/moodle/run.sh:/run.sh
     depends_on:
       - mariadb
   mariadb:
