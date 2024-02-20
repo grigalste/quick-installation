@@ -112,7 +112,7 @@ apt install jq unzip zstd curl wget ca-certificates net-tools git -y;
 if command_exists docker; then
 	echo "Docker is already installed";
 else
-	source docker/install_docker.sh;
+	source /app/docker/install_docker.sh;
 fi
 
 docker version | head -n2;
@@ -143,19 +143,19 @@ fi
 
 	case $INSTALLED_APP in
 		humhub )
-			source humhub/install_humhub_compose.sh 
+			source /app/humhub/install_humhub_compose.sh 
 		;;
 		
 		example )
-			source document-server/install_example.sh
+			source /app/document-server/install_example.sh
 		;;
 
 		redmine )
-			source redmine/install_redmine_compose.sh
+			source /app/redmine/install_redmine_compose.sh
 		;;
 
 		moodle )
-			source moodle/install_moodle_compose.sh
+			source /app/moodle/install_moodle_compose.sh
 		;;
 
 		nextcloud )
