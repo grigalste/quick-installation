@@ -24,6 +24,6 @@ docker exec onlyoffice-document-server sudo supervisorctl start ds:example
 docker exec onlyoffice-document-server sudo sed 's,autostart=false,autostart=true,' -i /etc/supervisor/conf.d/ds-example.conf
 
 # Restoring the configuration
-	sed -i 's/nginx_http.conf/nginx_https.conf/g' /app/nginx/nginx.yml;
+#	sed -i 's/nginx_http.conf/nginx_https.conf/g' /app/nginx/nginx.yml;
     sed -i 's/\/app\/document-server\/nginx/\/app\/nginx\/nginx/g' /app/nginx/nginx.yml;
 
